@@ -1,0 +1,16 @@
+logging:
+  config: configVar/logback-spring.xml
+spring:
+  application:
+    name: register-backend
+  jpa:
+    hibernate:
+      ddl-auto: validate
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MariaDBDialect
+  config:
+    import: file:configVar/application-var.yml
