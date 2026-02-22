@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
@@ -27,6 +28,7 @@ public class CrateController {
     }
 
     @GetMapping
+    @PreAuthorize("hasAnyRole('ADMIN', 'BEER_TREASURER')")
     @Operation(summary = "Get all crates", description = "Returns a list of all crates.")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "OK",
@@ -38,6 +40,7 @@ public class CrateController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'BEER_TREASURER')")
     @Operation(summary = "Get crate by id")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "OK",
@@ -50,6 +53,7 @@ public class CrateController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAnyRole('ADMIN', 'BEER_TREASURER')")
     @Operation(summary = "Create crate")
     @ApiResponses({
             @ApiResponse(responseCode = "201", description = "Created",
@@ -73,6 +77,7 @@ public class CrateController {
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'BEER_TREASURER')")
     @Operation(summary = "Update crate (full update)")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "OK",
@@ -94,6 +99,7 @@ public class CrateController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @Operation(summary = "Delete crate")
     @ApiResponses({
             @ApiResponse(responseCode = "204", description = "Deleted"),

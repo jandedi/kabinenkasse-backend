@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
@@ -27,6 +28,7 @@ public class PlayerFineController {
     }
 
     @GetMapping
+    @PreAuthorize("hasAnyRole('ADMIN', 'PENALTY_TREASURER')")
     @Operation(summary = "Get all player fines", description = "Returns a list of all player-fine entries.")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "OK",
@@ -38,6 +40,7 @@ public class PlayerFineController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'PENALTY_TREASURER')")
     @Operation(summary = "Get player fine by id")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "OK",
@@ -50,6 +53,7 @@ public class PlayerFineController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAnyRole('ADMIN', 'PENALTY_TREASURER')")
     @Operation(summary = "Create player fine")
     @ApiResponses({
             @ApiResponse(responseCode = "201", description = "Created",
@@ -73,6 +77,7 @@ public class PlayerFineController {
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'PENALTY_TREASURER')")
     @Operation(summary = "Update player fine (full update)")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "OK",
@@ -94,6 +99,7 @@ public class PlayerFineController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @Operation(summary = "Delete player fine")
     @ApiResponses({
             @ApiResponse(responseCode = "204", description = "Deleted"),

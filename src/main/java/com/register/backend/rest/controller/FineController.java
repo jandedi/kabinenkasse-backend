@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
@@ -27,6 +28,7 @@ public class FineController {
     }
 
     @GetMapping
+    @PreAuthorize("hasAnyRole('ADMIN', 'PENALTY_TREASURER')")
     @Operation(summary = "Get all fines", description = "Returns a list of all fines.")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "OK",
@@ -38,6 +40,7 @@ public class FineController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'PENALTY_TREASURER')")
     @Operation(summary = "Get fine by id")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "OK",
@@ -50,6 +53,7 @@ public class FineController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAnyRole('ADMIN', 'PENALTY_TREASURER')")
     @Operation(summary = "Create fine")
     @ApiResponses({
             @ApiResponse(responseCode = "201", description = "Created",
@@ -73,6 +77,7 @@ public class FineController {
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'PENALTY_TREASURER')")
     @Operation(summary = "Update fine (full update)")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "OK",
@@ -94,6 +99,7 @@ public class FineController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @Operation(summary = "Delete fine")
     @ApiResponses({
             @ApiResponse(responseCode = "204", description = "Deleted"),

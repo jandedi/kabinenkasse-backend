@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
@@ -27,6 +28,7 @@ public class PlayerController {
     }
 
     @GetMapping
+    @PreAuthorize("hasAnyRole('ADMIN', 'BEER_TREASURER', 'PENALTY_TREASURER')")
     @Operation(summary = "Get all players", description = "Returns a list of all players.")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "OK",
@@ -38,6 +40,7 @@ public class PlayerController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'BEER_TREASURER', 'PENALTY_TREASURER')")
     @Operation(summary = "Get player by id")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "OK",
@@ -50,6 +53,7 @@ public class PlayerController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @Operation(summary = "Create player")
     @ApiResponses({
             @ApiResponse(responseCode = "201", description = "Created",
@@ -73,6 +77,7 @@ public class PlayerController {
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @Operation(summary = "Update player (full update)")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "OK",
@@ -94,6 +99,7 @@ public class PlayerController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @Operation(summary = "Delete player")
     @ApiResponses({
             @ApiResponse(responseCode = "204", description = "Deleted"),
@@ -105,6 +111,7 @@ public class PlayerController {
     }
 
     @PostMapping("/{id}/drink-counter/increment")
+    @PreAuthorize("hasAnyRole('ADMIN', 'BEER_TREASURER')")
     @Operation(summary = "Increment drink counter", description = "Increases drinkCounter by 1.")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "OK",
@@ -117,6 +124,7 @@ public class PlayerController {
     }
 
     @PostMapping("/{id}/drink-counter/decrement")
+    @PreAuthorize("hasAnyRole('ADMIN', 'BEER_TREASURER')")
     @Operation(summary = "Decrement drink counter", description = "Decreases drinkCounter by 1 (not below 0).")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "OK",
