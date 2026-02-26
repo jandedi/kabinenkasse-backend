@@ -35,7 +35,7 @@ public class PlayerService {
 
     @Transactional(readOnly = true)
     public List<PlayerDto> getAll() {
-        return playerRepository.findAll().stream()
+        return playerRepository.findByOrderByFirstNameAsc().stream()
                 .map(playerMapper::toDto)
                 .toList();
     }
@@ -89,6 +89,8 @@ public class PlayerService {
             throw new UnknownEntityException("Unbekannter Spieler!", "0");
         }
 
+        logger.info("Player '{}' drink counter increased by 1", entity.get().getFirstName());
+
         int current = entity.get().getDrinkCounter() == null ? 0 : entity.get().getDrinkCounter();
         entity.get().setDrinkCounter(current + 1);
 
@@ -102,6 +104,8 @@ public class PlayerService {
             logger.error("Player not found: {}", id);
             throw new UnknownEntityException("Unbekannter Spieler!", "0");
         }
+
+        logger.info("Player '{}' drink counter decreased by 1", entity.get().getFirstName());
 
         int current = entity.get().getDrinkCounter() == null ? 0 : entity.get().getDrinkCounter();
 
