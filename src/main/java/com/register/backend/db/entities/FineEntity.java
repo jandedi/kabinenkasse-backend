@@ -17,6 +17,9 @@ public class FineEntity extends AbstractParentEntity {
     @Column(name = "Costs", nullable = false)
     private Float costs;
 
+    @Column(name = "Weight")
+    private Integer weight;
+
     public String getReason() {
         return reason;
     }
@@ -31,6 +34,14 @@ public class FineEntity extends AbstractParentEntity {
 
     public void setCosts(Float costs) {
         this.costs = costs;
+    }
+
+    public Integer getWeight() {
+        return weight;
+    }
+
+    public void setWeight(Integer weight) {
+        this.weight = weight;
     }
 
 }

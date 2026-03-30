@@ -31,7 +31,7 @@ public class FineService {
 
     @Transactional(readOnly = true)
     public List<FineDto> getAll() {
-        return fineRepository.findAll().stream()
+        return fineRepository.findByIdNotNullOrderByWeightDescReasonAsc().stream()
                 .map(fineMapper::toDto)
                 .toList();
     }
